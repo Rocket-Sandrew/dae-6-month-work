@@ -1,17 +1,4 @@
-title: "YOUR NAME — Cybersecurity & Backend Developer"
-description: "Portfolio showcasing secure backend systems, automation, and case studies."
-url: "https://kakradetome.github.io"
-baseurl: "/Kay-s-3-Week-Dae-Projects" # must match repo name exactly
-
+title: "[YOUR FULL NAME] | Portfolio"
+description: "[SHORT PORTFOLIO DESCRIPTION]"
 theme: jekyll-theme-cayman
-permalink: pretty
-
-# GitHub Pages-safe plugins
-plugins:
-    - jekyll-seo-tag
-    - jekyll-feed
-
-exclude:
-    - README.md
-    - Gemfile
-    - Gemfile.lock
+show_downloads: false

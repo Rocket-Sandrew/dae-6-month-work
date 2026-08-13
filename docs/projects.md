@@ -1,29 +1,56 @@
 ---
 layout: default
-title: "Projects"
-permalink: /projects/
+title: Projects
 ---
 
-{% include brand.html %}
-{% include nav.html %}
+<div class="dae-brand">
+  <img src="{{ '/assets/images/dae_logo_color.jpeg' | relative_url }}" alt="dae logo">
+</div>
 
-## Secure File Storage System
-**Problem:** Sensitive files stored without encryption or consistent access controls.  
-**Solution:** Client‑side encryption (KMS), RBAC with signed URLs, audit logging.  
-**Outcome:** 0 critical misconfigurations in 90 days; automated compliance export.
+<nav class="portfolio-nav" aria-label="Portfolio navigation">
+  <a href="{{ '/' | relative_url }}">Home</a>
+  <span aria-hidden="true"> · </span>
+  <a href="{{ '/about.html' | relative_url }}">About</a>
+  <span aria-hidden="true"> · </span>
+  <a href="{{ '/projects.html' | relative_url }}">Projects</a>
+  <span aria-hidden="true"> · </span>
+  <a href="{{ '/contact.html' | relative_url }}">Contact</a>
+</nav>
 
-<img src="{{ '/assets/img/dae-logo.png' | relative_url }}" alt="Project diagram placeholder" width="640" style="border-radius:12px;margin:8px 0;"/>
 
-**Tech:** Go, AWS S3 + KMS, Terraform, OPA  
-**Links:** [Source](https://github.com/YOUR-USERNAME/secure-file-storage) · [Demo](#)
+# Projects
 
----
+Choose **2–3 of your strongest projects** for the finished portfolio.
 
-## API Hardening Program
-**Problem:** Inconsistent API security across services.  
-**Solution:** ASVS‑aligned checklists, gateway policies (authn, rate limiting, schema validation), CI security gates.  
-**Outcome:** 70% fewer high‑risk findings in two sprints.
+## [PROJECT 1 NAME]
 
-**Tech:** TypeScript, OWASP ASVS, GitHub Actions
+![Project 1 image placeholder]({{ '/assets/images/project-placeholder.svg' | relative_url }})
 
-{% include footer-note.html %}
+[PROJECT 1 DESCRIPTION]
+
+- **Repository:** [PROJECT 1 GITHUB URL]
+- **Live demo:** [PROJECT 1 LIVE URL, IF APPLICABLE]
+- **What I contributed:** [YOUR CONTRIBUTION]
+- **Tools/technologies:** [TOOLS OR TECHNOLOGIES]
+
+## [PROJECT 2 NAME]
+
+![Project 2 image placeholder]({{ '/assets/images/project-placeholder.svg' | relative_url }})
+
+[PROJECT 2 DESCRIPTION]
+
+- **Repository:** [PROJECT 2 GITHUB URL]
+- **Live demo:** [PROJECT 2 LIVE URL, IF APPLICABLE]
+- **What I contributed:** [YOUR CONTRIBUTION]
+- **Tools/technologies:** [TOOLS OR TECHNOLOGIES]
+
+## [PROJECT 3 NAME]
+
+![Project 3 image placeholder]({{ '/assets/images/project-placeholder.svg' | relative_url }})
+
+[PROJECT 3 DESCRIPTION]
+
+- **Repository:** [PROJECT 3 GITHUB URL]
+- **Live demo:** [PROJECT 3 LIVE URL, IF APPLICABLE]
+- **What I contributed:** [YOUR CONTRIBUTION]
+- **Tools/technologies:** [TOOLS OR TECHNOLOGIES]
