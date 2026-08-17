@@ -18,27 +18,30 @@ title: Home
 </nav>
 
 
-# [YOUR FULL NAME]
+# Andrew D'Amico
 
-**Graduation:** [YOUR GRADUATION DATE]
+**Graduation:** December 2026
 
 ![Professional headshot placeholder]({{ '/assets/images/profile-placeholder.svg' | relative_url }})
 
 ## About Me
 
-[Write a short personal introduction here. Include your interests, values, and aspirations. Do not leave this placeholder in the final portfolio.]
+A Sacred Heart Graduate trying to break into the tech industry. I have experience helping individuals with their phones and laptops, both mac and windows. My mind is very strategic due to my interests in RPG's, annd I enjoy coding in Python. I also have some knowledge in criminal justice, hoping to find a career where my abilities will be put to good use. The main role I am interested in finding is that of a pentration tester, Though I would not be oppsed to working in threat intelligence or digital forenscics.
 
 ## Career Aspirations
 
-**Preferred role(s):** [YOUR PREFERRED ROLE(S)]
+**Preferred role(s):** Penetration Tester
 
-**Ideal work environment:** [DESCRIBE THE WORK ENVIRONMENT YOU ARE LOOKING FOR]
+**Ideal work environment:** Hybrid setup where I would be working idependantly with a team, preferrably with opportunities for assistance should it be needed.
 
-**Ideal job:** [DESCRIBE YOUR IDEAL JOB]
+**Ideal job description:** ethical hacker (penetration tester): A professional who simulates real cyberattacks against an organization's systems to identify vulnerabilities before malicious hackers can exploit them. They use the same techniques as attackers, but
+within a legal, controlled scope, and provide recommendations to strengthen the
+organization's security. This is needed to protect the important data of many
+companies in many different fields
 
-**Ideal team:** [DESCRIBE THE KIND OF TEAM YOU WANT TO WORK WITH]
+**Ideal team:** A team that is able to work well individually, but can collaberate and assist each other where needed.
 
-**Future goals:** [DESCRIBE YOUR FUTURE CAREER GOALS]
+**Future goals:** Learn more about cybersecurity, continue to code/work with interesting tech and create more complex projects.
 
 ## Featured Projects
 
