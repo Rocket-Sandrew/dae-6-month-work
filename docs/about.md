@@ -22,7 +22,7 @@ title: About
 
 ![Professional headshot placeholder]({{ '/assets/images/profile-placeholder.svg' | relative_url }})
 
-## [YOUR FULL NAME]
+## Andrew D'Amico
 
 **Graduation:** [YOUR GRADUATION DATE]
 
