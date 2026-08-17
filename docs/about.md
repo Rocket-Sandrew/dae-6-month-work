@@ -26,7 +26,7 @@ title: About
 
 **Graduation:** [YOUR GRADUATION DATE]
 
-[Expand your About Me section here. Include your interests, values, background, and aspirations.]
+A Sacred Heart Graduate trying to break into the tech industry. I have experience helping individuals with their phones and laptops, both mac and windows. My mind is very strategic due to my interests in RPg's, annd I enjoy coding in Python. I also have some knowledge in criminal justice, hoping to find a career where my abilities will be put to good use. The main role I am interested in finding is that of a pentration tester, Though I would not be oppsed to working in threat intelligence or digital forenscics.
 
 ## Career Direction
 
