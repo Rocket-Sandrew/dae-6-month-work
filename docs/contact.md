@@ -20,9 +20,9 @@ title: Contact
 
 # Contact
 
-- **Name:** [YOUR FULL NAME]
-- **Email:** [YOUR EMAIL]
-- **LinkedIn:** [YOUR LINKEDIN URL]
-- **GitHub:** [YOUR GITHUB URL]
+- **Name:** Andrew D'Amico
+- **Email:** ad.buissness1224@gmail.com
+- **LinkedIn:** [text](https://www.linkedin.com/in/andrew-d-amico-1b3663266/)
+- **GitHub:** [text](https://github.com/Rocket-Sandrew)
 
 [OPTIONAL SHORT CONTACT MESSAGE]
