@@ -22,7 +22,7 @@ title: Contact
 
 - **Name:** Andrew D'Amico
 - **Email:** ad.buissness1224@gmail.com
-- **LinkedIn:** [text](https://www.linkedin.com/in/andrew-d-amico-1b3663266/)
-- **GitHub:** [text](https://github.com/Rocket-Sandrew)
+- **LinkedIn:** [https://www.linkedin.com/in/andrew-d-amico-1b3663266/](https://www.linkedin.com/in/andrew-d-amico-1b3663266/)
+- **GitHub:** [https://github.com/Rocket-Sandrew](https://github.com/Rocket-Sandrew)
 
 [OPTIONAL SHORT CONTACT MESSAGE]
