@@ -20,7 +20,7 @@ title: About
 
 # About Me
 
-![Professional headshot placeholder]({{ '/assets/images/profile-placeholder.svg' | relative_url }})
+![Professional headshot placeholder]({{ '/assets/images/headshot.jpeg' | relative_url }})
 
 ## Andrew D'Amico
 
