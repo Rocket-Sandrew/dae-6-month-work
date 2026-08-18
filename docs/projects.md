@@ -15,6 +15,8 @@ title: Projects
   <a href="{{ '/projects.html' | relative_url }}">Projects</a>
   <span aria-hidden="true"> · </span>
   <a href="{{ '/contact.html' | relative_url }}">Contact</a>
+  <span aria-hidden="true"> · </span>
+    <a href="{{ '/assets/documents/ADResume.pdf' | relative_url }}" target="_blank">Resume</a>
 </nav>
 
 
