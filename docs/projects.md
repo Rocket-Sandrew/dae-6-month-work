@@ -22,27 +22,27 @@ title: Projects
 
 Choose **2–3 of your strongest projects** for the finished portfolio.
 
-## [PROJECT 1 NAME]
+## Terminal Clue
 
-![Project 1 image placeholder]({{ '/assets/images/project-placeholder.svg' | relative_url }})
+![Project 1 image placeholder]({{ '/assets/images/project1.png' | relative_url }})
 
-[PROJECT 1 DESCRIPTION]
+An algorithim simulating the board game clue, played out in the terminal. It is a single player game taking place during a murder mystery party, where the player must use the clues they are given to find the culprit.
 
-- **Repository:** [PROJECT 1 GITHUB URL]
-- **Live demo:** [PROJECT 1 LIVE URL, IF APPLICABLE]
-- **What I contributed:** [YOUR CONTRIBUTION]
-- **Tools/technologies:** [TOOLS OR TECHNOLOGIES]
+- **Repository** Check my GitHub
+- **Live demo:** Don't have one yet
+- **What I contributed:** Coding was handled by me, with some assistance
+- **Tools/technologies:** Visual Studio Code(Python), Cluade
 
-## [PROJECT 2 NAME]
+## Keylogger
 
 ![Project 2 image placeholder]({{ '/assets/images/project-placeholder.svg' | relative_url }})
 
-[PROJECT 2 DESCRIPTION]
+A simple keyLogger made using Python, meant to keep track of key pressed on a computer. this was coded during the one week program at DAE
 
-- **Repository:** [PROJECT 2 GITHUB URL]
-- **Live demo:** [PROJECT 2 LIVE URL, IF APPLICABLE]
-- **What I contributed:** [YOUR CONTRIBUTION]
-- **Tools/technologies:** [TOOLS OR TECHNOLOGIES]
+- **Repository** Check my GitHub
+- **Live demo:** Don't have one
+- **What I contributed:** coding was handled by me with assistance
+- **Tools/technologies:** Visual Studio Code(Python), Cluade
 
 ## [PROJECT 3 NAME]
 
