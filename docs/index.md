@@ -22,7 +22,7 @@ title: Home
 
 **Graduation:** December 2026
 
-![Professional headshot placeholder]({{ '/assets/images/profile-placeholder.svg' | relative_url }})
+![Professional headshot placeholder]({{ '/assets/images/headshot.jpeg' | relative_url }})
 
 ## About Me
 
