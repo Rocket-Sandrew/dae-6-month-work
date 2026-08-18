@@ -25,4 +25,4 @@ title: Contact
 - **LinkedIn:** [https://www.linkedin.com/in/andrew-d-amico-1b3663266/](https://www.linkedin.com/in/andrew-d-amico-1b3663266/)
 - **GitHub:** [https://github.com/Rocket-Sandrew](https://github.com/Rocket-Sandrew)
 
-[OPTIONAL SHORT CONTACT MESSAGE]
+You know what to do if you have any questions!

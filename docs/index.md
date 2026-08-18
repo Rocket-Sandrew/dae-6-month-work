@@ -71,6 +71,6 @@ companies in many different fields
 
 ## Contact
 
-- **Email:** [YOUR EMAIL]
-- **LinkedIn:** [YOUR LINKEDIN URL]
-- **GitHub:** [YOUR GITHUB URL]
+- **Email:** ad.buissness1224@gmail.com
+- **LinkedIn:** [https://www.linkedin.com/in/andrew-d-amico-1b3663266/](https://www.linkedin.com/in/andrew-d-amico-1b3663266/)
+- **GitHub:** [https://github.com/Rocket-Sandrew](https://github.com/Rocket-Sandrew)
