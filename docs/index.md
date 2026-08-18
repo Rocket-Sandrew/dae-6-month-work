@@ -28,20 +28,20 @@ title: Home
 
 ## About Me
 
-A Sacred Heart Graduate trying to break into the tech industry. I have experience helping individuals with their phones and laptops, both mac and windows. My mind is very strategic due to my interests in RPG's, annd I enjoy coding in Python. I also have some knowledge in criminal justice, hoping to find a career where my abilities will be put to good use. The main role I am interested in finding is that of a pentration tester, Though I would not be oppsed to working in threat intelligence or digital forenscics.
+A Sacred Heart Graduate trying to break into the tech industry. I have experience helping individuals with their phones and laptops, both mac and windows. My mind is very strategic due to my interests in RPG's, and I enjoy coding in Python. I also have some knowledge in criminal justice, hoping to find a career where my abilities will be put to good use. The main role I am interested in finding is that of a penetration tester, Though I would not be opposed to working in threat intelligence or digital forensics.
 
 ## Career Aspirations
 
 **Preferred role(s):** Penetration Tester
 
-**Ideal work environment:** Hybrid setup where I would be working idependantly with a team, preferrably with opportunities for assistance should it be needed.
+**Ideal work environment:** Hybrid setup where I would be working independently with a team, preferrably with opportunities for assistance should it be needed.
 
 **Ideal job description:** ethical hacker (penetration tester): A professional who simulates real cyberattacks against an organization's systems to identify vulnerabilities before malicious hackers can exploit them. They use the same techniques as attackers, but
 within a legal, controlled scope, and provide recommendations to strengthen the
 organization's security. This is needed to protect the important data of many
 companies in many different fields
 
-**Ideal team:** A team that is able to work well individually, but can collaberate and assist each other where needed.
+**Ideal team:** A team that is able to work well individually, but can collaborate and assist each other where needed.
 
 **Future goals:** Learn more about cybersecurity, continue to code/work with interesting tech and create more complex projects.
 
@@ -51,15 +51,15 @@ companies in many different fields
 
 ![Project 1 image placeholder]({{ '/assets/images/project1.png' | relative_url }})
 
-An algorithim simulating the board game clue, played out in the terminal. It is a single player game taking place during a murder mystery party, where the player must use the clues they are given to find the culprit.
+An algorithm simulating the board game clue, played out in the terminal. It is a single player game taking place during a murder mystery party, where the player must use the clues they are given to find the culprit.
 
 [Project repository or live demo](#)
 
-### Keylogger
+### keylogger
 
 ![Project 2 image placeholder]({{ '/assets/images/project-placeholder.svg' | relative_url }})
 
-A simple keyLogger made using Python, meant to keep track of key pressed on a computer. this was coded during the one week program at DAE.
+A simple keylogger made using Python, meant to keep track of key pressed on a computer. this was coded during the one week program at DAE.
 
 [Project repository or live demo](#)
 
