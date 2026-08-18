@@ -15,6 +15,8 @@ title: Home
   <a href="{{ '/projects.html' | relative_url }}">Projects</a>
   <span aria-hidden="true"> · </span>
   <a href="{{ '/contact.html' | relative_url }}">Contact</a>
+    <a href="{{ '/assets/documents/Andrew_DAmico_Resume.pdf' | relative_url }}" target="_blank">Resume</a>
+
 </nav>
 
 
