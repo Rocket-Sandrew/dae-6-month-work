@@ -37,7 +37,7 @@ An algorithim simulating the board game clue, played out in the terminal. It is 
 
 ![Project 2 image placeholder]({{ '/assets/images/project-placeholder.svg' | relative_url }})
 
-A simple keyLogger made using Python, meant to keep track of key pressed on a computer. this was coded during the one week program at DAE
+A simple keyLogger made using Python, meant to keep track of key pressed on a computer. this was coded during the one week program at DAE.
 
 - **Repository** Check my GitHub
 - **Live demo:** Don't have one

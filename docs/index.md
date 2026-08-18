@@ -45,19 +45,19 @@ companies in many different fields
 
 ## Featured Projects
 
-### [PROJECT 1 NAME]
+### Terminal Clue
 
-![Project 1 image placeholder]({{ '/assets/images/project-placeholder.svg' | relative_url }})
+![Project 1 image placeholder]({{ '/assets/images/project1.png' | relative_url }})
 
-[PROJECT 1 DESCRIPTION]
+An algorithim simulating the board game clue, played out in the terminal. It is a single player game taking place during a murder mystery party, where the player must use the clues they are given to find the culprit.
 
 [Project repository or live demo](#)
 
-### [PROJECT 2 NAME]
+### Keylogger
 
 ![Project 2 image placeholder]({{ '/assets/images/project-placeholder.svg' | relative_url }})
 
-[PROJECT 2 DESCRIPTION]
+A simple keyLogger made using Python, meant to keep track of key pressed on a computer. this was coded during the one week program at DAE.
 
 [Project repository or live demo](#)
 
