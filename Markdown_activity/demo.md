@@ -32,9 +32,11 @@ I used the [Markdown Guide](https://www.markdownguide.org/basic-syntax/).
 The filename `hello.py` is displayed as inline code.
 
 ```python
-print("Hellow, Markdown!")
+print("Hello, Markdown!")
 ```
 
 ## Reflections
 
 Markdown allows me to write readable plain text and preview it as a formatted document.
+
+<span style="color: rgba(129, 13, 145, 0.95)">This is how to change the color of text. <span>
