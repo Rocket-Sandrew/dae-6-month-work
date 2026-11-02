@@ -1,0 +1,20 @@
+HTTP Status: 200
+Response URL: http://127.0.0.1:3000/
+
+Response Headers:
+Access-Control-Allow-Origin: *
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+Feature-Policy: payment 'self'
+X-Recruiting: /#/jobs
+Accept-Ranges: bytes
+Cache-Control: public, max-age=0
+Last-Modified: Thu, 22 Oct 2026 15:44:53 GMT
+ETag: W/"24b1-1a16449635c"
+Content-Type: text/html; charset=UTF-8
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Date: Thu, 22 Oct 2026 17:16:21 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked

@@ -1,0 +1,7 @@
+HTTP Status: 302
+Response URL: http://127.0.0.1:3000/redirect?to=https%3A%2F%2Fgithub.com%2Fjuice-shop%2Fjuice-shop
+Response Headers:
+{'Access-Control-Allow-Origin': '*', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'SAMEORIGIN', 'Feature-Policy': "payment 'self'", 'X-Recruiting': '/#/jobs', 'Location': 'https://github.com/juice-shop/juice-shop', 'Vary': 'Accept, Accept-Encoding', 'Content-Type': 'text/plain; charset=utf-8', 'Content-Length': '62', 'Date': 'Wed, 21 Oct 2026 18:06:35 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'}
+
+Response Body:
+Found. Redirecting to https://github.com/juice-shop/juice-shop
