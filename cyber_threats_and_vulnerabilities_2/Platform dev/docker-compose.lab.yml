@@ -1,0 +1,150 @@
+services:
+  redis:
+    image: redis:8.10.1
+    restart: unless-stopped
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  opensearch:
+    image: opensearchproject/opensearch:3.8.0
+    restart: unless-stopped
+    environment:
+      discovery.type: single-node
+      plugins.security.disabled: "true"
+      thread_pool.search.queue_size: "5000"
+      OPENSEARCH_INITIAL_ADMIN_PASSWORD: ${OPENSEARCH_ADMIN_PASSWORD}
+      OPENSEARCH_JAVA_OPTS: "-Xms1g -Xmx1g"
+    volumes:
+      - esdata:/usr/share/opensearch/data
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:9200 >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 20
+
+  minio:
+    image: pgsty/silo:latest
+    restart: unless-stopped
+    command: server /data
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    volumes:
+      - s3data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:4.3-management
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+      RABBITMQ_NODENAME: rabbit01@localhost
+    volumes:
+      - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - amqpdata:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 30s
+      timeout: 30s
+      retries: 5
+
+  opencti:
+    image: opencti/platform:latest
+    restart: unless-stopped
+    environment:
+      NODE_OPTIONS: "--max-old-space-size=3072"
+      APP__PORT: "8080"
+      APP__BASE_URL: "${OPENCTI_EXTERNAL_SCHEME}://${OPENCTI_HOST}:${OPENCTI_PORT}"
+      APP__ADMIN__EMAIL: ${OPENCTI_ADMIN_EMAIL}
+      APP__ADMIN__PASSWORD: ${OPENCTI_ADMIN_PASSWORD}
+      APP__ADMIN__TOKEN: ${OPENCTI_ADMIN_TOKEN}
+      APP__ENCRYPTION_KEY: ${OPENCTI_ENCRYPTION_KEY}
+      APP__HEALTH_ACCESS_KEY: ${OPENCTI_HEALTH_ACCESS_KEY}
+      REDIS__HOSTNAME: redis
+      REDIS__PORT: "6379"
+      ELASTICSEARCH__URL: http://opensearch:9200
+      ELASTICSEARCH__USERNAME: admin
+      ELASTICSEARCH__PASSWORD: ${OPENSEARCH_ADMIN_PASSWORD}
+      ELASTICSEARCH__NUMBER_OF_REPLICAS: "0"
+      MINIO__ENDPOINT: minio
+      MINIO__PORT: "9000"
+      MINIO__USE_SSL: "false"
+      MINIO__ACCESS_KEY: ${MINIO_ROOT_USER}
+      MINIO__SECRET_KEY: ${MINIO_ROOT_PASSWORD}
+      RABBITMQ__HOSTNAME: rabbitmq
+      RABBITMQ__PORT: "5672"
+      RABBITMQ__PORT_MANAGEMENT: "15672"
+      RABBITMQ__MANAGEMENT_SSL: "false"
+      RABBITMQ__USERNAME: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ__PASSWORD: ${RABBITMQ_DEFAULT_PASS}
+      SMTP__HOSTNAME: localhost
+      SMTP__PORT: "25"
+      PROVIDERS__LOCAL__STRATEGY: LocalStrategy
+    ports:
+      - "127.0.0.1:${OPENCTI_PORT}:8080"
+    depends_on:
+      redis:
+        condition: service_healthy
+      opensearch:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - -qO-
+        - "http://localhost:8080/health?health_access_key=${OPENCTI_HEALTH_ACCESS_KEY}"
+      interval: 15s
+      timeout: 10s
+      retries: 20
+      start_period: 90s
+
+  worker:
+    image: opencti/worker:latest
+    restart: unless-stopped
+    environment:
+      OPENCTI_URL: http://opencti:8080
+      OPENCTI_TOKEN: ${OPENCTI_ADMIN_TOKEN}
+      WORKER_LOG_LEVEL: info
+    depends_on:
+      opencti:
+        condition: service_healthy
+
+  connector-mitre:
+    image: opencti/connector-mitre:latest
+    restart: unless-stopped
+    environment:
+      OPENCTI_URL: http://opencti:8080
+      OPENCTI_TOKEN: ${OPENCTI_ADMIN_TOKEN}
+      CONNECTOR_ID: ${CONNECTOR_MITRE_ID}
+      CONNECTOR_AUTO_CREATE_SERVICE_ACCOUNT: "true"
+      CONNECTOR_AUTO_CREATE_SERVICE_ACCOUNT_CONFIDENCE_LEVEL: "75"
+    depends_on:
+      opencti:
+        condition: service_healthy
+
+volumes:
+  esdata:
+  s3data:
+  redisdata:
+  amqpdata:
