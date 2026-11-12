@@ -1,186 +1,201 @@
-# 📘 Mini-Tutorial: Automated Evidence Cleanup and Retention Workflow
+# Mini-Tutorial: Evidence Cleanup and OWASP ZAP API Integration
 
-_A student-authored tutorial documenting a key integration or concept learned in Semester 5._
-
----
-
-## ❓ What This Teaches
-
-**In one paragraph, explain the concept, tool, or integration.**  
->What problem does it solve? What kind of project would benefit from using it?
-
-This tutorial demonstrates how to integrate an automated evidence-management workflow into a Python-based web penetration-testing toolkit. The workflow uses Python to audit evidence files, identify old temporary .txt files, preserve registered evidence, and record cleanup activities in a log. The workflow can be scheduled using macOS launchd, or APScheduler allowing routine maintenance to run without manual intervention. This integration helps prevent unnecessary file accumulation while maintaining evidence integrity, traceability, and chain-of-custody requirements. It is useful for cybersecurity projects, digital forensics workflows, and security tools that collect large amounts of test output.
+_A student-authored tutorial documenting two integrations in the Python-Based Automated Web Penetration Testing Toolkit._
 
 ---
 
-## 🎯 Use Case
+## What This Teaches
 
-> What real-world need or job scenario does this apply to?
+This tutorial explains two supporting capabilities added to a Python-based web penetration-testing toolkit:
 
--   [ ] Backend development
--   [x] Cybersecurity
--   [x] Monitoring / Observability
--   [x] Performance / Testing
--   [ ] Authentication / Authorization
--   [x] DevOps / Deployments
--   [x] Other: Digital forenscis and evidence lifecycle managment
+**Evidence lifecycle cleanup:** A controlled, date-based process for reviewing and removing older evidence files while preserving retained records, hashes, backups, and audit history.
 
-Project application: Python-Based Automated Web Penetration Testing Toolkit.
+Evidence cleanup controls the growth of collected test artifacts without silently discarding audit history. 
+
+## Use Case
+- [ ] Backend development
+- [x] Cybersecurity
+- [x] Monitoring / Observability
+- [x] Performance / Testing
+- [ ] Authentication / Authorization
+- [x] DevOps / Deployments
+- [x] Other: Digital forensics and evidence lifecycle management
+
+**Project application:** Python-Based Automated Web Penetration Testing Toolkit.
+
 ---
 
-## 🚀 Quick Setup / Install
+# Part 1 — Automated Evidence Cleanup and Retention
 
-Show just what’s needed to get started.
-Run these commands from the project root on macOS:
+## 1. Purpose and design
+
+The evidence cleanup workflow is implemented in:
+
+```text
+evidence/cleanup_workflow.py
+```
+
+It supports a date-based retention operation. The operator supplies a retention date, reviews a non-destructive preview, and then explicitly authorizes deletion.
+
+The workflow is designed to:
+
+- Compare evidence-record dates using the `America/New_York` timezone.
+- Identify records older than the specified keep date.
+- Validate eligible files before deletion.
+- Check file hashes against the evidence register.
+- Protect files referenced by retained records.
+- Require an explicit `DELETE` confirmation before applying a purge.
+- Record purge activity and chain-of-custody events.
+- Back up the active evidence register before changing it.
+- Retain records when deletion or validation cannot safely be completed.
+
+This is a manually authorized cleanup workflow. The completed project work does not establish that a scheduled APScheduler or launchd job is installed or running.
+
+## 2. Review the evidence structure
+
+From the project root, inspect the evidence directory:
 
 ```bash
-cd ~/Desktop/dae_6month_ad/Pentesting_Toolkit
-source automated-web-pentest/bin/activate
-python -m pip install "APScheduler<4"
-python -m pip show APScheduler
+ls evidence
+ls evidence/logs
+ls evidence/cleanup_logs
 ```
-The <4 version constraint uses the APScheduler 3.x API shown in this tutorial. Install it inside the project's virtual environment so it does not affect other Python projects.
----
 
-## 🛠️ Step-by-Step Guide
+Important files include:
 
-Write the steps clearly and briefly. Use bullet points or numbers.
+| File | Purpose |
+|---|---|
+| `evidence/evidence_register.csv` | Active evidence inventory |
+| `evidence/logs/chain_of_custody.csv` | Evidence handling and custody events |
+| `evidence/logs/verification_log.csv` | Evidence verification history |
+| `evidence/cleanup_logs/cleanup_history.csv` | Cleanup workflow history |
+| `evidence/cleanup_logs/purge_history.csv` | Purge authorization and outcome history |
 
-1. Confirm the cleanup function
-This tutorial assumes the project already has evidence/cleanup_workflow.py with a callable cleanup(dry_run=True) function. The cleanup routine should only consider files in a dedicated temporary directory, such as evidence/tmp/, and should protect any filename referenced in evidence_register.csv. Keep the evidence register, reports, request/response captures, logs/chain_of_custody.csv, and logs/verification_log.csv out of the deletion scope.
+The register includes fields such as `Evidence_ID`, `Timestamp`, `Test_ID`, `Finding_ID`, `Filename`, `SHA256`, `Collected_By`, `Validation_Status`, and `Notes`.
 
-Before scheduling anything, run the cleanup script manually in dry-run mode and inspect its output. If your current cleanup module uses different function names or arguments, adjust the import and call below to match the actual code.
+## 3. Run a non-destructive preview
 
-2. Create evidence/evidence_scheduler.py
-```python
-"""Run a weekly, non-destructive evidence-cleanup preview."""
-
-import logging
-
-from apscheduler.schedulers.blocking import BlockingScheduler
-from cleanup_workflow import cleanup
-
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s %(levelname)s %(message)s",
-)
-
-scheduler = BlockingScheduler(timezone="America/New_York")
-
-
-def run_evidence_maintenance():
-    """Preview cleanup candidates; do not delete files automatically."""
-    logging.info("Starting scheduled evidence-maintenance dry run.")
-    cleanup(dry_run=True)
-    logging.info("Scheduled dry run finished. Review the output before deletion.")
-
-
-scheduler.add_job(
-    run_evidence_maintenance,
-    trigger="cron",
-    day_of_week="mon",
-    hour=9,
-    minute=0,
-    id="weekly_evidence_maintenance",
-    replace_existing=True,
-    max_instances=1,
-    coalesce=True,
-)
-
-logging.info("Evidence maintenance preview scheduled for Mondays at 09:00.")
-scheduler.start()
-```
-Note: The from cleanup_workflow import cleanup import assumes cleanup_workflow.py is in the same evidence/ directory. If it is stored elsewhere, update the import to match your project structure.
-
-3. Test the scheduler without waiting until Monday
-For a quick test, temporarily change the schedule to run every minute:
-```python
-scheduler.add_job(
-    run_evidence_maintenance,
-    trigger="interval",
-    minutes=1,
-    id="weekly_evidence_maintenance_test",
-    replace_existing=True,
-    max_instances=1,
-)
-```
-Start the scheduler from the project root:
+Run the cleanup workflow with the date to retain:
 
 ```bash
-python evidence/evidence_scheduler.py
+python evidence/cleanup_workflow.py --keep-date 2026-11-10
 ```
 
-Leave that terminal process running and watch for the scheduled dry-run messages. Stop it with Ctrl+C, then restore the Monday schedule. The scheduler does not run when the Python process is stopped.
+Without `--apply`, the workflow performs a dry run. Review:
 
-4. Review candidates and apply cleanup manually
-After the dry run, inspect the candidate paths and confirm they are genuinely temporary and not required for the assignment or an investigation. Only then run the cleanup workflow's supported apply mode—for example, if the script implements this exact command:
+- How many records are older than the keep date.
+- Which files are eligible for deletion.
+- Which files are protected or require review.
+- Whether any records have missing files or hash mismatches.
+
+Do not proceed if the preview identifies unexpected files or unresolved validation problems.
+
+## 4. Apply an authorized cleanup
+
+After reviewing the preview and confirming the retention boundary, run:
 
 ```bash
-python evidence/cleanup_workflow.py --apply
+python evidence/cleanup_workflow.py --keep-date 2026-11-10 --apply --reason "Authorized cleanup of evidence records dated before 2026-11-10; preserve current-day records."
 ```
 
-Do not use this example command unless the script actually supports --apply. Keep deletion manual until the cleanup rules, register protection, and audit logging have been tested.
+The workflow requires the exact interactive confirmation:
 
-5. Record validation evidence
-For the project report, capture:
-- The installed APScheduler version (python -m pip show APScheduler).
-- The scheduled job configuration and timestamp of the test.
-- Terminal output showing the dry run executed.
-- The list of candidate files and the review decision.
-- Relevant evidence-register and chain-of-custody checks before and after any approved cleanup.
-Do not claim the workflow is validated until you have run these checks in your own environment.
----
-
-## ✅ What You Should See
-
-Describe the working result — terminal output, UI screenshot, etc.
-
-When the scheduler starts, the terminal should indicate that the weekly maintenance preview is scheduled. When the job runs, it should log the start and finish of the dry run and show whatever candidate-file output your cleanup function provides.
-
-Example log messages (illustrative, not captured project output):
-
-```
-2026-10-29 09:00:00 INFO Starting scheduled evidence-maintenance dry run.
-2026-10-29 09:00:00 INFO Scheduled dry run finished. Review the output before deletion.
+```text
+DELETE
 ```
 
-The key expected behavior is that scheduling a dry run does not delete files. Any deletion should happen only after a human reviews the candidates and invokes a supported apply mode.
+The apply operation uses the same safety checks as the preview and records its actions. Do not bypass the confirmation or treat a dry-run result as proof that files were deleted.
 
-You can embed screenshots if helpful:
+## 5. Verify the result
+
+Review the cleanup summary and confirm the active register and audit logs.
+
+A post-cleanup register check can be performed with:
+
+```bash
+python -c 'import csv; from pathlib import Path; p=Path("evidence/evidence_register.csv"); rows=list(csv.DictReader(p.open(newline="",encoding="utf-8"))); print("REGISTER ROWS:",len(rows)); [print(r["Evidence_ID"],r["Timestamp"],r["Filename"]) for r in rows]'
+```
+
+Also inspect the timestamped register backup and purge history:
+
+```bash
+ls -l evidence/evidence_register.csv.pre_purge_*
+tail -n 10 evidence/cleanup_logs/purge_history.csv
+tail -n 10 evidence/logs/chain_of_custody.csv
+```
+
+The backup and logs are part of the audit trail. Do not delete them as part of the routine cleanup.
+
+## 6. Completed cleanup test — November 10, 2026
+
+The completed cleanup used `--keep-date 2026-11-10`. The dry run identified 140 older records and 280 eligible files. The apply operation was then authorized using the explicit `DELETE` confirmation.
+
+**Recorded result:**
+
+| Result | Count |
+|---|---:|
+| Older records identified | 140 |
+| Older records removed from active register | 140 |
+| Older records retained | 0 |
+| Files successfully deleted | 280 |
+| Active register records remaining | 2 |
+
+The register backup created by the operation was:
+
+```text
+evidence/evidence_register.csv.pre_purge_20261110T193617Z
+```
+
+The purge history and chain-of-custody logs were retained.
+
+### Important verification qualification
+
+The two records remaining in the active register were:
+
+- `CLEANUP-TEST-001`
+- `MISSING-TEST-001`
+
+Both were dated November 10, 2026, so they were retained by the date rule. Their request and response files were absent during post-cleanup verification. The `CLEANUP-TEST-001` files had been intentionally purged during an earlier cleanup test; the `MISSING-TEST-001` files were absent as part of a missing-file test.
+
+These rows are retained test/audit records, not complete evidence sets. They must not be described as validated evidence with available source files.
+
+## 7. Evidence cleanup tips
+
+- **Preview first:** Run without `--apply` and inspect the candidates.
+- **Verify hashes:** A registered filename is not enough; the workflow checks file integrity.
+- **Protect retained records:** Files referenced by retained records should not be purged.
+- **Preserve audit history:** Keep the register backup, purge history, and chain-of-custody logs.
+- **Document exceptions:** Missing files and failed validation should remain visible for review rather than being silently represented as successful deletions.
+- **Use the correct date:** The workflow evaluates record dates in `America/New_York`.
+
+---
+
+## What You Should See
+
+### Evidence cleanup
+
+The cleanup command should display a preview when run without `--apply`. During the completed November 10 operation, the final summary reported 140 older records removed, 280 files deleted, and two current-day records remaining. The register backup and audit logs remained available.
 
 
 ---
 
-## 💡 Pro Tips / Edge Cases
+## Pro Tips / Edge Cases
 
-List 1–2 important reminders:
-
-- Preserve evidence: Never automatically remove registered evidence, reports, hashes, verification logs, or chain-of-custody records. Age alone is not a safe reason to delete a file.
-
-- Dry run first: Keep the scheduled job non-destructive until tests prove the cleanup safeguards work correctly.
-
-- Scheduler uptime: APScheduler's blocking scheduler must remain running. If you want it to start automatically on macOS, configure a launchd job to start the scheduler at login and test its logs. Alternatively, use macOS launchd to run a one-shot cleanup preview on a schedule; in that setup, APScheduler is not necessary.
-
-- Audit trail: Ensure the cleanup routine records the timestamp, file path, action, and outcome. Do not modify or erase the chain-of-custody history as part of routine cleanup.
-
-- Timezone: The example uses America/New_York; change this if the project should follow a different local timezone.
+- Review duplicate alerts before counting unique findings.
+- Run the evidence cleanup preview before applying deletion.
+- Keep evidence-register backups, purge logs, verification logs, and chain-of-custody records.
+- Do not describe the two retained November 10 test rows as complete evidence; their associated files were missing during verification.
 
 ---
 
-## 📚 Learn More
+## Learn More
 
-Link to any docs or references you found useful:
-- [Workflow learning](https://www.ibm.com/think/topics/workflow)
-
-- [APScheduler documentation](https://apscheduler.readthedocs.io/en/3.x/)
-
-- [APScheduler 3.x user guide](https://apscheduler.readthedocs.io/en/3.x/userguide.html)
-
+- [APScheduler 3.x documentation](https://apscheduler.readthedocs.io/en/3.x/) — reference material only; a scheduled cleanup service is not claimed as implemented in this project.
 - [Python logging documentation](https://docs.python.org/3/library/logging.html)
 
 ---
 
-## 👤 Authored by: Andrew D'Amico
+## Authored by: Andrew D'Amico
 
-🗓️ Date: [2026-10-29]  
-🔁 Validated by: [Educator or Peer Name if applicable]
+Date: 2026-11-11  
+Validation note: Evidence cleanup is documented from the recorded project tests. 
