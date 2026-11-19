@@ -190,13 +190,15 @@ def validate_input(clue, clue_cards):
     while not input_valid:
         try:
             clue = int(clue)
-            if clue < len(clue_cards) and clue >= 0:
-                input_valid = True
-                clue = clue_cards[clue]
-            else:
-                raise ValueError
+            if clue < 0 or clue >= len(clue_cards):
+                raise ValueError("Number is outside the valid range")
         except ValueError:
             clue = input("Sorry! that doesn't work, please only enter a number from the list above: ")
+        else:    
+            input_valid = True
+            clue = clue_cards[clue]
+        finally: 
+            print("Input validation Result:", input_valid)
     return clue
 
 #function for final player theory, will reveal answer
