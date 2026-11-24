@@ -64,11 +64,11 @@ A simple keylogger made using Python, meant to keep track of key pressed on a co
 
 [Project repository or live demo](#)
 
-### [PROJECT 3 NAME]
+### Automated Web Penetration Testing Toolkit
 
-![Project 3 image placeholder]({{ '/assets/images/project-placeholder.svg' | relative_url }})
+![Project 3 image placeholder]({{ '/assets/images/project3.png' | relative_url }})
 
-[PROJECT 3 DESCRIPTION]
+A Python-based automated web penetration testing toolkit designed to identify and document potential security vulnerabilities in web applications. The framework automates website crawling, endpoint discovery, security header analysis, SQL injection testing, and external redirect detection. It also generates HTML reports containing identified findings, severity levels, supporting evidence, and remediation recommendations.
 
 [Project repository or live demo](#)
 
